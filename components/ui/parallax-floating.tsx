@@ -8,7 +8,6 @@ import {
   useEffect,
   useRef,
 } from "react"
-import { useAnimationFrame } from "motion/react"
 
 import { cn } from "@/lib/utils"
 import { useMousePositionRef } from "@/hooks/use-mouse-position-ref"
@@ -62,24 +61,33 @@ const Floating = ({
     elementsMap.current.delete(id)
   }, [])
 
-  useAnimationFrame(() => {
-    if (!containerRef.current) return
+  useEffect(() => {
+    let animationFrameId: number
 
-    elementsMap.current.forEach((data) => {
-      const strength = (data.depth * sensitivity) / 20
+    const animate = () => {
+      if (!containerRef.current) return
 
-      const newTargetX = mousePositionRef.current.x * strength
-      const newTargetY = mousePositionRef.current.y * strength
+      elementsMap.current.forEach((data) => {
+        const strength = (data.depth * sensitivity) / 20
 
-      const dx = newTargetX - data.currentPosition.x
-      const dy = newTargetY - data.currentPosition.y
+        const newTargetX = mousePositionRef.current.x * strength
+        const newTargetY = mousePositionRef.current.y * strength
 
-      data.currentPosition.x += dx * easingFactor
-      data.currentPosition.y += dy * easingFactor
+        const dx = newTargetX - data.currentPosition.x
+        const dy = newTargetY - data.currentPosition.y
 
-      data.element.style.transform = `translate3d(${data.currentPosition.x}px, ${data.currentPosition.y}px, 0)`
-    })
-  })
+        data.currentPosition.x += dx * easingFactor
+        data.currentPosition.y += dy * easingFactor
+
+        data.element.style.transform = `translate3d(${data.currentPosition.x}px, ${data.currentPosition.y}px, 0)`
+      })
+
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animationFrameId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [sensitivity, easingFactor])
 
   return (
     <FloatingContext.Provider value={{ registerElement, unregisterElement }}>

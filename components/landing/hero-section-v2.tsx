@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { motion, stagger, useAnimate } from 'motion/react';
+import { motion, stagger, useAnimate } from 'framer-motion';
 import Floating, { FloatingElement } from '@/components/ui/parallax-floating';
 
 export function HeroSectionV2() {
