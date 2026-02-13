@@ -93,42 +93,49 @@ export function HeroSectionV2() {
   ];
 
   return (
-    <section className="relative min-h-screen w-full bg-white overflow-hidden" ref={scope}>
-      {/* Background image */}
+    <section className="relative min-h-screen w-full overflow-hidden" ref={scope}>
+      {/* Background image - base layer */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={{
           backgroundImage: 'url(https://images.pexels.com/photos/30791852/pexels-photo-30791852.jpeg)',
         }}
       />
 
-      {/* Gradient overlay with theme colors - PRESERVED */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1F4D3A]/50 via-[#3F7A5C]/40 to-[#E6A756]/20" />
+      {/* Gradient overlay with theme colors - stays on top of background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1F4D3A]/60 via-[#3F7A5C]/50 to-[#1F4D3A]/60 z-1" />
 
-      {/* Floating images container */}
-      <Floating sensitivity={-0.5} className="overflow-hidden">
-        {floatingImages.map((image, index) => (
-          <FloatingElement 
-            key={index} 
-            depth={image.depth} 
-            className="floating-image"
-            style={{ top: image.top, left: image.left }}
-          >
-            <motion.img
-              initial={{ opacity: 0 }}
-              src={image.src}
-              alt={image.alt}
-              className="rounded-lg shadow-lg hover:scale-105 duration-200 cursor-pointer transition-transform object-cover"
-              style={{
-                width: `${image.width}px`,
-                height: `${image.height}px`,
+      {/* Floating images container - positioned absolutely */}
+      <div className="absolute inset-0 z-2">
+        <Floating sensitivity={-0.5} className="relative w-full h-full">
+          {floatingImages.map((image, index) => (
+            <FloatingElement 
+              key={index} 
+              depth={image.depth} 
+              className="floating-image absolute"
+              style={{ 
+                top: image.top, 
+                left: image.left,
+                zIndex: 10 + index
               }}
-            />
-          </FloatingElement>
-        ))}
-      </Floating>
+            >
+              <motion.img
+                initial={{ opacity: 0 }}
+                src={image.src}
+                alt={image.alt}
+                className="rounded-lg shadow-lg hover:scale-105 duration-200 cursor-pointer transition-transform object-cover"
+                style={{
+                  width: `${image.width}px`,
+                  height: `${image.height}px`,
+                }}
+              />
+            </FloatingElement>
+          ))}
+        </Floating>
+      </div>
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-8 h-screen flex flex-col justify-center items-center text-center">
+      {/* Content - on top of everything */}
+      <div className="relative z-20 mx-auto max-w-5xl px-6 sm:px-8 h-screen flex flex-col justify-center items-center text-center">
         {/* Main Headline */}
         <motion.div
           className="space-y-6"

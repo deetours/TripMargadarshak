@@ -93,7 +93,7 @@ const Floating = ({
     <FloatingContext.Provider value={{ registerElement, unregisterElement }}>
       <div
         ref={containerRef}
-        className={cn("absolute top-0 left-0 w-full h-full", className)}
+        className={cn("relative w-full h-full", className)}
         {...props}
       >
         {children}
@@ -131,7 +131,7 @@ export const FloatingElement = ({
   return (
     <div
       ref={elementRef}
-      className={cn("absolute will-change-transform", className)}
+      className={cn("will-change-transform", className)}
     >
       {children}
     </div>
