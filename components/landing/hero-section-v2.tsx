@@ -9,132 +9,113 @@ export function HeroSectionV2() {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
-    // Animate floating elements in
     animate(
       '.floating-image',
       { opacity: [0, 1] },
-      { duration: 0.5, delay: stagger(0.1) }
+      { duration: 0.6, delay: stagger(0.12) }
     );
   }, [animate]);
 
   const floatingImages = [
     {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400&auto=format&fit=crop",
-      alt: "Mountain Peak",
+      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop",
       depth: 0.5,
-      width: 80,
-      height: 80,
-      top: "8%",
-      left: "11%",
+      width: 70,
+      height: 70,
+      top: "15%",
+      left: "10%",
     },
     {
-      src: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=400&auto=format&fit=crop",
-      alt: "Trek Guide",
-      depth: 1,
-      width: 100,
-      height: 100,
-      top: "10%",
-      left: "32%",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400&auto=format&fit=crop",
-      alt: "Snow Peak",
-      depth: 2,
-      width: 120,
-      height: 120,
-      top: "2%",
-      left: "53%",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=400&auto=format&fit=crop",
-      alt: "Mountain Trail",
-      depth: 1,
-      width: 100,
-      height: 100,
-      top: "0%",
-      left: "83%",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400&auto=format&fit=crop",
-      alt: "Trek Valley",
-      depth: 1,
-      width: 110,
-      height: 110,
-      top: "40%",
-      left: "2%",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400&auto=format&fit=crop",
-      alt: "Peak View",
-      depth: 2,
-      width: 110,
-      height: 130,
-      top: "70%",
-      left: "77%",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400&auto=format&fit=crop",
-      alt: "Camp Site",
-      depth: 4,
-      width: 140,
-      height: 160,
-      top: "73%",
-      left: "15%",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
-      alt: "Trek Group",
-      depth: 1,
+      src: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=120&h=120&fit=crop",
+      depth: 1.2,
       width: 90,
       height: 90,
-      top: "80%",
-      left: "50%",
+      top: "18%",
+      left: "30%",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=120&h=120&fit=crop",
+      depth: 0.8,
+      width: 80,
+      height: 80,
+      top: "12%",
+      left: "65%",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=140&h=140&fit=crop",
+      depth: 1.5,
+      width: 100,
+      height: 100,
+      top: "25%",
+      left: "85%",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=140&h=140&fit=crop",
+      depth: 0.6,
+      width: 85,
+      height: 85,
+      top: "65%",
+      left: "5%",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=140&h=140&fit=crop",
+      depth: 1.3,
+      width: 95,
+      height: 95,
+      top: "72%",
+      left: "80%",
     },
   ];
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden" ref={scope}>
-      {/* Background image - base layer */}
+      {/* Background image - layer 1 */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.pexels.com/photos/30791852/pexels-photo-30791852.jpeg)',
+          zIndex: 0,
         }}
       />
 
-      {/* Gradient overlay with theme colors - stays on top of background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1F4D3A]/60 via-[#3F7A5C]/50 to-[#1F4D3A]/60 z-1" />
+      {/* Gradient overlay - layer 2, visible on top of image */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-[#1F4D3A]/65 via-[#3F7A5C]/50 to-[#1F4D3A]/70"
+        style={{ zIndex: 1 }}
+      />
 
-      {/* Floating images container - positioned absolutely */}
-      <div className="absolute inset-0 z-2">
-        <Floating sensitivity={-0.5} className="relative w-full h-full">
-          {floatingImages.map((image, index) => (
-            <FloatingElement 
-              key={index} 
-              depth={image.depth} 
-              className="floating-image absolute"
-              style={{ 
-                top: image.top, 
-                left: image.left,
-                zIndex: 10 + index
+      {/* Floating container - layer 3 */}
+      <Floating sensitivity={-0.4} className="pointer-events-none" style={{ zIndex: 5 }}>
+        {floatingImages.map((image, index) => (
+          <FloatingElement
+            key={index}
+            depth={image.depth}
+            className="floating-image pointer-events-auto"
+            style={{
+              position: 'absolute',
+              top: image.top,
+              left: image.left,
+              zIndex: 10 + index,
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              style={{
+                width: image.width,
+                height: image.height,
               }}
             >
-              <motion.img
-                initial={{ opacity: 0 }}
+              <img
                 src={image.src}
-                alt={image.alt}
-                className="rounded-lg shadow-lg hover:scale-105 duration-200 cursor-pointer transition-transform object-cover"
-                style={{
-                  width: `${image.width}px`,
-                  height: `${image.height}px`,
-                }}
+                alt="Trek"
+                className="w-full h-full rounded-xl shadow-2xl object-cover"
               />
-            </FloatingElement>
-          ))}
-        </Floating>
-      </div>
+            </motion.div>
+          </FloatingElement>
+        ))}
+      </Floating>
 
-      {/* Content - on top of everything */}
+      {/* Content - layer 4 (on top) */}
       <div className="relative z-20 mx-auto max-w-5xl px-6 sm:px-8 h-screen flex flex-col justify-center items-center text-center">
         {/* Main Headline */}
         <motion.div
