@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .font-playfair {
+    font-family: var(--font-playfair), Georgia, serif;
+  }
+  
+  .font-inter {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer base {
+  :root {
+    /* Premium Trek Color System */
+    --trek-deep-forest: 162 48% 17%;
+    --trek-forest: 162 44% 24%;
+    --trek-leaf: 162 46% 36%;
+    --trek-mist: 160 38% 70%;
+    --trek-dust: 162 28% 96%;
+    --trek-saffron: 28 84% 58%;
+    --trek-sky: 202 42% 35%;
+    
+    /* Base colors - Green ecosystem */
+    --background: 162 28% 98%;
+    --foreground: 162 48% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 162 48% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 162 48% 17%;
+    --primary: 162 48% 17%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 162 28% 96%;
+    --secondary-foreground: 162 48% 17%;
+    --muted: 162 28% 87%;
+    --muted-foreground: 162 20% 50%;
+    --accent: 162 46% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 162 28% 92%;
+    --input: 162 28% 92%;
+    --ring: 162 48% 17%;
+    --chart-1: 162 48% 17%;
+    --chart-2: 162 46% 36%;
+    --chart-3: 162 28% 96%;
+    --chart-4: 28 84% 58%;
+    --chart-5: 202 42% 35%;
+    --radius: 0.5rem;
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-white text-foreground;
+  }
+}
+
+/* Custom utilities for nature aesthetics */
+@layer utilities {
+  .green-glow {
+    box-shadow: 0 0 20px rgba(98, 182, 120, 0.15);
+  }
+  
+  .mist-bg {
+    @apply bg-[#F3F8F4];
+  }
+  
+  .forest-text {
+    @apply text-[#1F4D3A];
+  }
+  
+  .leaf-accent {
+    @apply text-[#3F7A5C];
+  }
+  
+  .nav-underline {
+    @apply border-b-2 border-transparent hover:border-[#3F7A5C] transition-colors;
+  }
+}
